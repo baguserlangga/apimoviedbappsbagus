@@ -50,7 +50,8 @@ class MovieAdapter(val context:Context,val result : ArrayList <Results>): Recycl
         Glide.with(holder.itemView)
             .load("https://image.tmdb.org/t/p/w500" + result[position].poster_path)
             .into(holder.binding.movieImage)
-        holder.binding.movieName.text = result[position].title +" " +item.id
+        holder.binding.movieName.text = item.title +" "
+        holder.binding.movieReleaseDate.text =item.release_date
     }
 
     override fun getItemCount(): Int {

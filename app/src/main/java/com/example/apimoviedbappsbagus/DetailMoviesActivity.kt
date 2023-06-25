@@ -1,23 +1,24 @@
 package com.example.apimoviedbappsbagus
 
-import android.R
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.os.Parcel
 import android.util.Log
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.example.apimoviedbappsbagus.Adapter.ProductionAdapter
 import com.example.apimoviedbappsbagus.Model.DetailMovieModel
 import com.example.apimoviedbappsbagus.Model.ResponseVideosTrailer
 import com.example.apimoviedbappsbagus.Service.RetrofitInstance
 import com.example.apimoviedbappsbagus.databinding.ActivityDetailMoviesBinding
-import com.example.apimoviedbappsbagus.databinding.DialogCategoryLayoutBinding
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.Exception
+import java.text.NumberFormat
+import java.util.*
+import kotlin.collections.HashMap
 
 
 class DetailMoviesActivity() : AppCompatActivity() {
@@ -25,8 +26,8 @@ class DetailMoviesActivity() : AppCompatActivity() {
     var movieid :String? =null
     var result : DetailMovieModel?=null
     var viewyoutube = false
-
-
+    private lateinit var productionAdapter : ProductionAdapter
+    lateinit var lm  : LinearLayoutManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -107,13 +108,41 @@ class DetailMoviesActivity() : AppCompatActivity() {
         binding.textViewIsiOverView.text = moviedetail.overview
         binding.textViewtitle.text = moviedetail.title
         binding.textViewIsiReleaseDate.text = moviedetail.releaseDate
+
         Glide.with(binding.imageMovie)
             .load("https://image.tmdb.org/t/p/w500" + moviedetail.posterPath)
             .into(binding.imageMovie)
         Glide.with(binding.imageBackdrop)
             .load("https://image.tmdb.org/t/p/w500" + moviedetail.backdropPath)
             .into(binding.imageBackdrop)
+
+
+        val format: NumberFormat = NumberFormat.getCurrencyInstance()
+        format.setMaximumFractionDigits(0)
+        format.setCurrency(Currency.getInstance("USD"))
+
+        val k :String=format.format(moviedetail.revenue).toString()
+        binding.textViewIsiRevenue.text = k
+        binding.textViewStatus.text = moviedetail.status
+
+        lm = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+        productionAdapter = ProductionAdapter(this,moviedetail.productionCompanies)
+
+        binding.mRecyclerViewProduction.setHasFixedSize(true)
+        binding.mRecyclerViewProduction.layoutManager = lm
+
+
+        binding.mRecyclerViewProduction.adapter = productionAdapter
+
+
+
+
+
+
+
     }
+
 
 
 

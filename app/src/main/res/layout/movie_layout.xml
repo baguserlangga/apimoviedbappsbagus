@@ -41,6 +41,18 @@
                 android:textColor="@color/white"
                 android:textSize="30dp"
                 android:textStyle="bold"></TextView>
+
+            <TextView
+                android:id="@+id/movieReleaseDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="Movie Name"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="14dp"
+                android:textStyle="bold"></TextView>
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

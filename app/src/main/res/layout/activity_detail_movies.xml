@@ -8,13 +8,32 @@
     tools:context=".DetailMoviesActivity">
 
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonViewTrailer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View Trailer"
+        app:cornerRadius="100dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonReview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="Review Movie"
+        app:cornerRadius="100dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonViewTrailer" />
+
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:visibility="visible"
-        tools:layout_editor_absoluteX="-49dp"
-        tools:layout_editor_absoluteY="-292dp">
+        app:layout_constraintBottom_toTopOf="@+id/buttonReview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,7 +44,8 @@
                 android:id="@+id/cardView"
                 android:layout_width="match_parent"
 
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:visibility="visible">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -61,8 +81,7 @@
                                 app:layout_constraintBottom_toBottomOf="@+id/imageBackdrop"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                />
+                                app:layout_constraintTop_toTopOf="parent" />
 
                             <com.google.android.material.imageview.ShapeableImageView
                                 android:id="@+id/imageBackdrop"
@@ -136,19 +155,63 @@
                 android:layout_marginEnd="8dp"
                 android:text="Isi OverVIew" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonViewTrailer"
+            <TextView
+                android:id="@+id/textView3"
+                style="@style/WhiteText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="View Trailer"
-                app:cornerRadius="100dp" />
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:text="Revenue"
+                android:textSize="16dp" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonReview"
+            <TextView
+                android:id="@+id/textViewIsiRevenue"
+
+                style="@style/WhiteText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Review Movie"
-                app:cornerRadius="100dp" />
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="Isi OverVIew" />
+
+            <TextView
+                android:id="@+id/textView4"
+                style="@style/WhiteText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:text="Status"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/textViewStatus"
+
+                style="@style/WhiteText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="Isi OverVIew" />
+
+            <TextView
+                android:id="@+id/textView5"
+                style="@style/WhiteText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:text="Production Companies"
+                android:textSize="16dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/mRecyclerViewProduction"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
         </LinearLayout>
     </ScrollView>

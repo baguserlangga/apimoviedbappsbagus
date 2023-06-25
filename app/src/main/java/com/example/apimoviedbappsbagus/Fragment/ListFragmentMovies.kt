@@ -75,7 +75,7 @@ class ListFragmentMovies : Fragment() {
 
         binding.mRecyclerView.setHasFixedSize(true)
         binding.mRecyclerView.layoutManager = lm
-        movieAdapter = MovieAdapter(requireContext(),listMovies)
+
         binding.mRecyclerView.adapter = movieAdapter
 
 
