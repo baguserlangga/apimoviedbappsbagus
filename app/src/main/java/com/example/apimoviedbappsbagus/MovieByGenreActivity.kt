@@ -1,81 +1,53 @@
-package com.example.apimoviedbappsbagus.Fragment
+package com.example.apimoviedbappsbagus
 
 import android.content.ContentValues
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.apimoviedbappsbagus.Adapter.MovieAdapter
-import com.example.apimoviedbappsbagus.Model.Results
 import com.example.apimoviedbappsbagus.Model.ResponseListMovies
+import com.example.apimoviedbappsbagus.Model.Results
 import com.example.apimoviedbappsbagus.Service.RetrofitInstance
-import com.example.apimoviedbappsbagus.databinding.FragmentListMoviesBinding
+import com.example.apimoviedbappsbagus.databinding.ActivityMovieByGenreBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.HashMap
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
-
- * create an instance of this fragment.
- */
-class NowPlayingFragmentMovies : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-    private lateinit var binding : FragmentListMoviesBinding
-    private lateinit var movieAdapter : MovieAdapter
+class MovieByGenreActivity : AppCompatActivity() {
+    lateinit var binding  : ActivityMovieByGenreBinding
     val listMovies = arrayListOf<Results>()
-    var idmovie :Int?=null
-    //    val  lm = LinearLayoutManager(this)
     var page = 1
-
     var loading = true
     var pastItemsVisible: Int = 0
     var visibleItemCount: Int = 0
     var totalItemCount: Int = 0
     lateinit var lm  : LinearLayoutManager
+    var genreId = ""
+
+    private lateinit var movieAdapter : MovieAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+        binding = ActivityMovieByGenreBinding.inflate(layoutInflater)
+        genreId = intent.getStringExtra("genreId",).toString()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        binding = FragmentListMoviesBinding.inflate(layoutInflater)
-        // Inflate the layout for this fragment
-
+        Log.d("inigenreid", "onCreate: " + genreId)
+        setContentView(binding.root)
+        getMoviesGenre(genreId,page)
         prepareRecyclerView()
 
-        getPopularMovies(page)
-        return binding.root
     }
-
-
-
     private fun prepareRecyclerView() {
-        lm = LinearLayoutManager(requireContext())
+        lm = LinearLayoutManager(this)
 
-        movieAdapter = MovieAdapter(requireContext(),listMovies)
+        movieAdapter = MovieAdapter(this,listMovies)
 
         binding.mRecyclerView.setHasFixedSize(true)
         binding.mRecyclerView.layoutManager = lm
-        movieAdapter = MovieAdapter(requireContext(),listMovies)
+        movieAdapter = MovieAdapter(this,listMovies)
         binding.mRecyclerView.adapter = movieAdapter
 
 
@@ -103,20 +75,15 @@ class NowPlayingFragmentMovies : Fragment() {
     fun loadmore()
     {
         page+=1
-        getPopularMovies(page)
+        getMoviesGenre(genreId,page)
     }
-    fun clear()
-    {
-        listMovies.clear()
-
-    }
-
-    fun getPopularMovies(page:Int) {
+    fun getMoviesGenre(genreId:String,page : Int) {
         val params: MutableMap<String, String> = HashMap()
         params["api_key"] = "7916ace8a965a1c3413cd5231af30364"
         params["language"] = "en-US"
+        params["with_genres"] = genreId
         params["page"] = page.toString()
-        RetrofitInstance.api.getNowPlaying(params).enqueue(object  :
+        RetrofitInstance.api.getDiscovery(params).enqueue(object  :
             Callback<ResponseListMovies> {
             override fun onResponse(call: Call<ResponseListMovies>, response: Response<ResponseListMovies>) {
                 if (response.body()!=null){
@@ -134,8 +101,5 @@ class NowPlayingFragmentMovies : Fragment() {
                 Log.d("TAGihan", t.message.toString())
             }
         })
-    }
-    fun newInstance() :NowPlayingFragmentMovies{
-        return NowPlayingFragmentMovies()
     }
 }

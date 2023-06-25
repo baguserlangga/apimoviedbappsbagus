@@ -12,10 +12,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.apimoviedbappsbagus.Adapter.GenreAdapter
-import com.example.apimoviedbappsbagus.Adapter.MovieAdapter
 import com.example.apimoviedbappsbagus.Fragment.ListFragmentMovies
 import com.example.apimoviedbappsbagus.Fragment.NowPlayingFragmentMovies
-import com.example.apimoviedbappsbagus.Model.DetailMovieModel
 import com.example.apimoviedbappsbagus.Model.GenresModel
 import com.example.apimoviedbappsbagus.Model.ResponseGenres
 import com.example.apimoviedbappsbagus.Model.ResponseListMovies
@@ -82,7 +80,7 @@ class MainActivity : AppCompatActivity() {
 
         }
         binding.imageViewCategory.setOnClickListener{
-            getMoviesGenre()
+            getGenre()
         }
 
         binding.editTextSearch.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
@@ -116,35 +114,12 @@ class MainActivity : AppCompatActivity() {
        }
 
    }
-    fun getMoviesDetail(movieid:String) {
+
+    fun getGenre() {
         val params: MutableMap<String, String> = HashMap()
         params["api_key"] = "7916ace8a965a1c3413cd5231af30364"
         params["language"] = "en-US"
         params["with_genres"] = ""
-        RetrofitInstance.api.getDiscovery(params).enqueue(object  :
-            Callback<ResponseListMovies> {
-            override fun onResponse(call: Call<ResponseListMovies>, response: Response<ResponseListMovies>) {
-                if (response.body()!=null){
-//                    result= response.body()!!
-//                    showItem(result!!)
-
-                }
-                else{
-                    Log.d("TAGihan", response.code().toString())
-
-                }
-            }
-            override fun onFailure(call: Call<ResponseListMovies>, t: Throwable) {
-
-                Log.d("TAGihan", t.message.toString())
-            }
-        })
-    }
-    fun getMoviesGenre() {
-        val params: MutableMap<String, String> = HashMap()
-        params["api_key"] = "7916ace8a965a1c3413cd5231af30364"
-        params["language"] = "en-US"
-//        params["with_genres"] = ""
         RetrofitInstance.api.getGenre(params).enqueue(object  :
             Callback<ResponseGenres> {
             override fun onResponse(call: Call<ResponseGenres>, response: Response<ResponseGenres>) {
@@ -170,13 +145,15 @@ class MainActivity : AppCompatActivity() {
         bindingCategory = DialogCategoryLayoutBinding.inflate(layoutInflater)
         bottomSheetDialog.setContentView(bindingCategory.root)
 
-      val  lm = LinearLayoutManager(this)
+        val  lm = LinearLayoutManager(this)
 
-       var  movieAdapter = GenreAdapter(this,listgenre)
+        var  movieAdapter = GenreAdapter(this,listgenre)
 
         bindingCategory.mRecyclerView.setHasFixedSize(true)
         bindingCategory.mRecyclerView.layoutManager = lm
         bindingCategory.mRecyclerView.adapter = movieAdapter
+
+
 
 
         bottomSheetDialog.show()

@@ -1,6 +1,7 @@
 package com.example.apimoviedbappsbagus.Fragment
 
 import android.content.ContentValues
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -61,7 +62,6 @@ class ListFragmentMovies : Fragment() {
         // Inflate the layout for this fragment
 
         prepareRecyclerView()
-
         getPopularMovies(page)
         return binding.root
     }
@@ -116,6 +116,7 @@ class ListFragmentMovies : Fragment() {
         params["api_key"] = "7916ace8a965a1c3413cd5231af30364"
         params["language"] = "en-US"
         params["page"] = page.toString()
+
         RetrofitInstance.api.getPopularMovies(params).enqueue(object  :
             Callback<ResponseListMovies> {
             override fun onResponse(call: Call<ResponseListMovies>, response: Response<ResponseListMovies>) {
@@ -135,4 +136,6 @@ class ListFragmentMovies : Fragment() {
             }
         })
     }
+
+
 }

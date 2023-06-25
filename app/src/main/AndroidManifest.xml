@@ -16,6 +16,12 @@
         android:theme="@style/Theme.ApiMovieDbAppsBagus"
         tools:targetApi="31">
         <activity
+            android:name=".ReviewerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MovieByGenreActivity"
+            android:exported="false" />
+        <activity
             android:name=".YoutubePlayer"
             android:exported="false" />
         <activity
