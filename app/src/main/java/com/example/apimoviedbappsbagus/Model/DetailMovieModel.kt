@@ -9,7 +9,7 @@ class DetailMovieModel (
 //    @SerializedName("budget"                ) var budget              : Int?                           = null,
 //    @SerializedName("genres"                ) var genres              : ArrayList<GenresModel>           = arrayListOf(),
 //    @SerializedName("homepage"              ) var homepage            : String?                        = null,
-//    @SerializedName("id"                    ) var id                  : Int?                           = null,
+    @SerializedName("id"                    ) var id                  : Int?                           = null,
 //    @SerializedName("imdb_id"               ) var imdbId              : String?                        = null,
     @SerializedName("original_language"     ) var originalLanguage    : String?                        = null,
     @SerializedName("original_title"        ) var originalTitle       : String?                        = null,

@@ -22,5 +22,7 @@ interface MoviesApi {
     fun getDiscovery( @QueryMap params : Map<String,String>) : Call<ResponseListMovies>
     @GET("genre/movie/list")
     fun getGenre( @QueryMap params : Map<String,String>) : Call<ResponseGenres>
-//    api_key={api_key}&query=Jack+Reacher
+    @GET("movie/{movie_id}/reviews")
+    fun getMoviesReviews(@Path("movie_id") idmovie:String, @QueryMap params : Map<String,String> ) : Call<ResponseReviewMovies>
+
 }

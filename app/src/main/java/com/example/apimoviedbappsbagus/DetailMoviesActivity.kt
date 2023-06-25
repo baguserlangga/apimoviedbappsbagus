@@ -40,23 +40,12 @@ class DetailMoviesActivity() : AppCompatActivity() {
             Log.d("inimovieid", "onCreate: " +movieid)
         }
         binding.buttonViewTrailer.setOnClickListener {
-//            if(viewyoutube)
-//            {
-//                getTrailerDetail(movieid!!)
-//                binding.youtubePlayerView.visibility = View.GONE
-//                binding.imageBackdrop.visibility = View.VISIBLE
-//                binding.imageMovie.visibility = View.VISIBLE
-//            }
-//            else{
-//                binding.youtubePlayerView.visibility = View.VISIBLE
-//                binding.imageBackdrop.visibility = View.GONE
-//                binding.imageMovie.visibility = View.GONE
-//            }
-
             getTrailerDetail(movieid!!)
-
-
-
+        }
+        binding.buttonReview.setOnClickListener {
+            val intent = Intent(this, ReviewerActivity::class.java)
+            intent.putExtra("movieId",result!!.id.toString())
+            startActivity(intent)
         }
         // Inflate the layout for this fragment
         getMoviesDetail(movieid.toString())
